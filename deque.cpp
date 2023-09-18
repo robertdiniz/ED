@@ -64,6 +64,58 @@ class Deque {
         void inicia_deque(Deque* d);
         void insertFirst(Deque* d, int x);
         void insertLast(Deque* d, int x);
+        void removeFirst(Deque* d);
+        void removeLast(Deque* d);
+        bool isEmpty(Deque* d);
+};
+
+bool Deque::isEmpty(Deque* d){
+    if(get_tamanho() == 0){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+void Deque::removeLast(Deque* d){
+    if(get_tamanho() == 0){
+        cout << "Não tem nenhum elemento para remover!" << endl;
+    } else {
+        No* aux = new No();
+        aux = get_last();
+        last = aux->get_prev();
+        tamanho--;
+        delete aux;
+    }
+};
+
+void Deque::removeFirst(Deque* d){
+    if(get_tamanho() == 0){
+        cout << "Não tem mais nenhum elemento para ser removido!" << endl;
+    } else {
+        No* aux = new No();
+        aux = get_first();
+        first = aux->get_next();
+        tamanho--;
+        delete aux;
+    }
+};
+
+void Deque::insertLast(Deque* d, int x){
+    if(get_tamanho() == 0){
+        No* aux = new No();
+        aux->set_valor(x);
+        set_first(aux);
+        set_last(aux);
+        tamanho++;
+    } else {
+        No* aux = new No();
+        aux->set_valor(x);
+        aux->set_prev(last);
+        last->set_next(aux);
+        last = aux;
+        tamanho++;
+    }
 };
 
 void Deque::insertFirst(Deque* d, int x){
@@ -78,7 +130,7 @@ void Deque::insertFirst(Deque* d, int x){
         aux->set_valor(x);
         aux->set_next(first);
         first->set_prev(aux);
-        first = aux;
+        set_first(aux);
         tamanho++;
     }
 };
@@ -116,17 +168,11 @@ Deque::Deque(){
 int main(){
 
     Deque* deque = new Deque();
-    No* ele1, ele2, ele3;
     cout << "Olá!" << endl;
     cout << deque->get_tamanho() << endl;
-    deque->insertFirst(deque, 5);
-    cout << "Olá!" << endl;
-    cout << deque->get_first()->get_valor() << endl;
-    deque->insertFirst(deque, 10);
-    cout << "Testando!" << endl;
-    cout << deque->get_first()->get_valor() << endl;
-    cout << deque->get_last()->get_valor() << endl;
-    cout << deque->get_first()->get_next()->get_valor() << endl;
+    cout << "Socorro: " << deque->isEmpty(deque) << endl;
+    
+    
 
     return 0;
 };
